@@ -11,7 +11,7 @@ const postRouter = require('./routers/post')
 
 const app = express()
 const upload = multer({ dest: 'uploads/' })
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 app.use(express.json())
 app.use(morgan('dev'))
