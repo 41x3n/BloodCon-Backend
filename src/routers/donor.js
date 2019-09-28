@@ -58,10 +58,21 @@ router.post('/donors/logoutAll', dAuth, async (req, res) => {
   }
 })
 
-// Route to get user details
+// Route to get donor details
 router.get('/donors/me', dAuth, async(req, res) => {
   try {
     res.send(req.donor)
+  } catch (error) {
+    res.status(400).send(error)
+  }
+})
+
+// Route to get a donor details
+router.get('/donors/:id', async(req, res) => {
+  const _id = req.params.id
+  try {
+    const donor = await Donor.findOne({ _id })
+    res.send(donor)
   } catch (error) {
     res.status(400).send(error)
   }

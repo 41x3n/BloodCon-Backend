@@ -70,6 +70,13 @@ const receiverSchema = new mongoose.Schema({
   timestamps: true
 })
 
+// Connecting to Post collection
+receiverSchema.virtual('posts', {
+  ref: 'Post',
+  localField: '_id',
+  foreignField: 'owner'
+})
+
 // Generate Authentication Token
 receiverSchema.methods.generateAuthToken = async function () {
   const receiver = this

@@ -29,16 +29,6 @@ router.post('/receivers/login', async (req, res) => {
   }
 })
 
-// Route to login a receiver Account
-router.post('/receivers/login', async (req, res) => {
-  try {
-    const receiver = await Receiver.findByCredentials(req.body.email, req.body.password)
-    const token = await receiver.generateAuthToken()
-    res.send({ receiver: receiver, token })
-  } catch (error) {
-    res.status(400).send(error)
-  }
-})
 // Route to logout a receiver account
 router.post('/receivers/logout', rAuth, async (req, res) => {
   try {
@@ -63,10 +53,21 @@ router.post('/receivers/logoutAll', rAuth, async (req, res) => {
   }
 })
 
-// Route to get user details
+// Route to get receiver details
 router.get('/receivers/me', rAuth, async(req, res) => {
   try {
     res.send(req.receiver)
+  } catch (error) {
+    res.status(400).send(error)
+  }
+})
+
+// Route to get a receiver details
+router.get('/receivers/:id', async(req, res) => {
+  const _id = req.params.id
+  try {
+    const receiver = await Receiver.findOne({ _id })
+    res.send(receiver)
   } catch (error) {
     res.status(400).send(error)
   }
