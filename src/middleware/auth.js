@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const Donor = require('../models/donor')
+const Receiver = require('../models/receiver')
 
 // Authenticating Donor Account
 const dAuth = async (req, res, next) => {
@@ -18,4 +19,22 @@ const dAuth = async (req, res, next) => {
   }
 }
 
-module.exports = { dAuth }
+// Authenticating Receiver Account
+const rAuth = async (req, res, next) => {
+  try {
+    const token = req.header('Authorization').replace('Bearer ', '')
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    const receiver = await Receiver.findOne({ _id: decoded._id, 'tokens.token': token })
+    if(!receiver) {
+      throw new Error()
+    }
+    req.token = token
+    req.receiver = receiver
+    next()
+  } catch (error) {
+    res.status(401).send({ error: 'Please authenticate.'})
+  }
+}
+
+
+module.exports = { dAuth, rAuth }

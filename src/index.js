@@ -6,7 +6,8 @@ const multer  = require('multer')
 const jwt = require('jsonwebtoken')
 const sharp = require('sharp')
 
-const userRouter = require('./routers/user')
+const donorRouter = require('./routers/donor')
+const receiverRouter = require('./routers/receiver')
 const postRouter = require('./routers/post')
 
 const app = express()
@@ -15,7 +16,8 @@ const port = process.env.PORT
 
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(userRouter)
+app.use(donorRouter)
+app.use(receiverRouter)
 app.use(postRouter)
 
 app.listen(port, () => {
