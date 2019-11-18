@@ -76,7 +76,7 @@ router.get('/receivers/:id', async(req, res) => {
 // Route to update Receiver information
 router.patch('/receivers/me', rAuth, async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ["name", "address", "city", "state", "zipCode", "country", "phone", "email", "password"]
+  const allowedUpdates = ["name", "address", "area", "city", "state", "zipCode", "country", "phone", "email", "password"]
   const isValidOperation = updates.every((update) => {
     return allowedUpdates.includes(update)
   })

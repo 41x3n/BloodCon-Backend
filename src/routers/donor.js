@@ -81,7 +81,7 @@ router.get('/donors/:id', async(req, res) => {
 // Route to update Donor information
 router.patch('/donors/me', dAuth, async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ["name", "address", "city", "state", "zipCode", "country", "phone", "email", "password", "age", "weight", "bloodGroup"]
+  const allowedUpdates = ["name", "address", "city", "area", "state", "zipCode", "country", "phone", "email", "password", "age", "weight", "bloodGroup"]
   const isValidOperation = updates.every((update) => {
     return allowedUpdates.includes(update)
   })

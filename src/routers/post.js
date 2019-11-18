@@ -68,7 +68,7 @@ router.get('/posts/:id', rAuth, async (req, res) => {
 // Route to update a post
 router.patch('/posts/:id', rAuth, async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['desc', "hospital", "address", "city", "state", "zipCode", "country", "phone", "bloodGroup"]
+  const allowedUpdates = ['desc', "hospital", "address", "area", "city", "state", "zipCode", "country", "phone", "bloodGroup"]
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
   if(!isValidOperation) {
