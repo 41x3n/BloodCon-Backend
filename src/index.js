@@ -5,12 +5,14 @@ const bcrypt = require('bcryptjs')
 const multer  = require('multer')
 const jwt = require('jsonwebtoken')
 const sharp = require('sharp')
+var cors = require('cors')
 
 const donorRouter = require('./routers/donor')
 const receiverRouter = require('./routers/receiver')
 const postRouter = require('./routers/post')
 
 const app = express()
+app.use(cors())
 const upload = multer({ dest: 'uploads/' })
 const port = process.env.PORT
 
