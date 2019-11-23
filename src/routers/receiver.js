@@ -3,6 +3,7 @@ const multer = require('multer')
 const sharp = require('sharp')
 const Receiver = require('../models/receiver')
 const { rAuth } = require('../middleware/auth')
+const { sendWelcomeEmail } = require('../emails/account')
 const router = new express.Router()
 
 
@@ -11,6 +12,7 @@ router.post('/receivers', async (req, res) => {
   const receiver = new Receiver(req.body)
   try {
     await receiver.save()
+    sendWelcomeEmail(receiver.email, receiver.name)
     const token = await receiver.generateAuthToken()
     res.status(201).send({ receiver, token })
   } catch (error) {

@@ -3,6 +3,8 @@ const multer = require('multer')
 const sharp = require('sharp')
 const Donor = require('../models/donor')
 const { dAuth } = require('../middleware/auth')
+const { sendWelcomeEmail } = require('../emails/account')
+const { sendWelcomeMessage } = require('../twilio/account')
 const router = new express.Router()
 
 
@@ -16,6 +18,8 @@ router.post('/donors', async (req, res) => {
   const donor = new Donor(req.body)
   try {
     await donor.save()
+    sendWelcomeEmail(donor.email, donor.name)
+    sendWelcomeMessage(donor.phone, donor.name)
     const token = await donor.generateAuthToken()
     res.status(201).send({ donor, token })
   } catch (error) {

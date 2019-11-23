@@ -1,6 +1,9 @@
 const express = require('express')
 const Post = require('../models/post')
+const Donor = require('../models/donor.js')
 const { rAuth } = require('../middleware/auth')
+const { needBlood } = require('../twilio/account')
+const { needBloodEmail } = require('../emails/account')
 const router = new express.Router()
 
 // Route to post a post
@@ -12,6 +15,14 @@ router.post('/posts', rAuth, async (req, res) => {
 
   try {
     await post.save()
+    let area = post.area
+    const list = await Donor.find({ area: `${area}` })
+    list.forEach(element => {
+      needBlood(element.phone, post.bloodGroup, post.hospital, post.phone)
+      needBloodEmail(element.email, post.bloodGroup, post.hospital, post.phone)
+      console.log('okay')
+    });
+    console.log(list)
     res.status(201).send(post)
   } catch (error) {
     res.status(200).send(error)
