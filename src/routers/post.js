@@ -16,7 +16,8 @@ router.post('/posts', rAuth, async (req, res) => {
   try {
     await post.save()
     let area = post.area
-    const list = await Donor.find({ area: `${area}` })
+    let bloodGroup = post.bloodGroup
+    const list = await Donor.find({ area: `${area}`, bloodGroup: `${bloodGroup}` })
     list.forEach(element => {
       needBlood(element.phone, post.bloodGroup, post.hospital, post.phone)
       needBloodEmail(element.email, post.bloodGroup, post.hospital, post.phone)
