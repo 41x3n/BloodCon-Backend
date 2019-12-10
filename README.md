@@ -4,6 +4,8 @@ Backend of a project, we created for our 5th Semester Minor Project in Brainware
 
 For Frontend, please visit this repository: [BloodCon-Frontend](https://github.com/41x3n/BloodCon-Frontend)
 
+See the website in action: [BloodCon](https://bloodcon.netlify.com/)
+
 ---
 
 ## Table of contents
